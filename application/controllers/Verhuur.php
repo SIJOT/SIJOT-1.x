@@ -18,6 +18,9 @@ class Verhuur extends CI_Controller
     public $Redirect    = array();
     public $Permissions = array();
 
+    /**
+     * Verhuur constructor.
+     */
     function __construct()
     {
         parent::__construct();
@@ -37,8 +40,11 @@ class Verhuur extends CI_Controller
         $this->Message = "U hebt geen rechten om deze handeling uit te voeren";
     }
 
-    // End constructor
-
+    /**
+     * The front-end index view for the rental section.
+     *
+     * Url: {domain}/Verhuur
+     */
     public function index()
     {
         $this->output->cache(5);
@@ -54,6 +60,11 @@ class Verhuur extends CI_Controller
         $this->load->view('components/footer');
     }
 
+    /**
+     * Display the bereikbaarheid page.
+     *
+     * Url: {domain}/verhuur/bereikbaarheid
+     */
     public function bereikbaarheid()
     {
         $data['Title']  = 'Bereikbaarheid';
@@ -67,6 +78,8 @@ class Verhuur extends CI_Controller
 
     /**
      * Generates the page for the calendar - Verhuur
+     *
+     * Url: {domain}
      */
     public function verhuur_kalender()
     {
