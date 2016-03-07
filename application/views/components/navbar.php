@@ -1,4 +1,4 @@
-      <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="navbar navbar-inverse navbar-static-top" role="navigation">
         <div class="container">
           <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
@@ -78,10 +78,18 @@
               </li>
 
               <li <?php if($Active == 5): ?> class="active" <?php endif; ?>>
-                <a href="<?php echo base_url(); ?>Info">
-                  <span class="fa fa-info-circle Icon-color"></span>
+                <a class="dropdown-toggle" data-toggle="dropdown" href="">
+                  <span class="fa Icon-color fa-info-circle"></span>
                   Info
                 </a>
+
+                <ul class="dropdown-menu">
+                  <li>
+                    <a href="https://groepsadmin.scoutsengidsenvlaanderen.be/groepsadmin/lidworden?groep=A4102G">
+                      Lid worden
+                    </a>
+                  </li>
+                </ul>
               </li>
 
               <li <?php if($Active == 6): ?> class="active" <?php endif; ?>>

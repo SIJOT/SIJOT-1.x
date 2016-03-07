@@ -196,10 +196,10 @@ class Inschrijvingen extends CI_Controller
         $Data['Query'] = $this->Inschrijving->download();
 
         $this->load->view('pdf/ontbijt', $Data);
-        $html = $this->output->getOutput();
+        $html = $this->Inschrijving->Download();
 
         // Logging
-        user_log($tis->Session['username'], 'Heeft de inschrijvingen gedownload.');
+        // user_log($this->Session['username'], 'Heeft de inschrijvingen gedownload.');
 
         // Convert to PDF
         $this->dompdf->load_html($html);

@@ -15,44 +15,43 @@ class Verhuur extends CI_Controller
     public $Session     = array();
     public $Heading     = array();
     public $Flash       = array();
+    public $Fields      = array();
     public $Redirect    = array();
     public $Permissions = array();
 
-    /**
-     * Verhuur constructor.
-     */
-    function __construct()
+    public function __construct()
     {
         parent::__construct();
         $this->load->model('Model_verhuringen', 'Verhuringen');
         $this->load->model('Model_notifications', 'Not');
 
-        $this->load->library(array('email', 'dompdf_gen', 'form_validation'));
+        $this->load->library(array('email', 'dompdf_gen', 'form_validation', 'pagination'));
         $this->load->helper(array('email', 'date', 'text', 'logger', 'download'));
 
         $this->Session     = $this->session->userdata('logged_in');
         $this->Permissions = $this->session->userdata('Permissions');
 
         $this->Flash    = $this->session->flashdata('Message');
+        $this->Fields   = $this->session->flashdata('Input');
         $this->Redirect = $this->config->item('Redirect', 'Not_logged_in');
 
         $this->Heading = "No permission";
         $this->Message = "U hebt geen rechten om deze handeling uit te voeren";
     }
 
-    /**
-     * The front-end index view for the rental section.
-     *
-     * Url: {domain}/Verhuur
-     */
+    // End constructor
+
+	/**
+	 * Index page for the rental. 
+	 * 
+	 * [LINK]
+	 */
     public function index()
     {
         $this->output->cache(5);
-
-        $Data = array(
-            'Title' => 'Verhuur',
-            'Active' => '2',
-        );
+		
+		$Data['Title']  = 'Verhuur';
+		$Data['Active'] = 2;
 
         $this->load->view('components/header', $Data);
         $this->load->view('components/navbar', $Data);
@@ -60,11 +59,6 @@ class Verhuur extends CI_Controller
         $this->load->view('components/footer');
     }
 
-    /**
-     * Display the bereikbaarheid page.
-     *
-     * Url: {domain}/verhuur/bereikbaarheid
-     */
     public function bereikbaarheid()
     {
         $data['Title']  = 'Bereikbaarheid';
@@ -78,8 +72,8 @@ class Verhuur extends CI_Controller
 
     /**
      * Generates the page for the calendar - Verhuur
-     *
-     * Url: {domain}
+	 *
+	 * [LINK] 
      */
     public function verhuur_kalender()
     {
@@ -118,6 +112,9 @@ class Verhuur extends CI_Controller
 
     /**
      * Voegt een verhuring toe aan de database en stuurt een mail naar de bevoegde personen.
+	 * 
+	 * TODO: Check for form validation 
+	 * TODO: Check is input flash message is needed.
      */
     public function toevoegen_verhuur()
     {
@@ -133,7 +130,18 @@ class Verhuur extends CI_Controller
                 'Message' => 'Uw verhuur aanvraag kon niet worden aangemaakt worden. Omdat een of meerdere vereiste velden niet zijn ingevult.'
             );
 
+            $input = array(
+                    'StartDatum' => $this->input->post('Start_datum'), 
+                    'EindDatum'  => $this->input->post('Eind_datum'), 
+                    'Email'      => $this->input->post('Email'),
+                    'Groep'      => $this->input->post('Groep')
+                );
+
+			
+			// Set Flash sessions.
+            $this->session->set_flashdata('Input', $input);
             $this->session->set_flashdata('Message', $Flash);
+			
             redirect('Verhuur/verhuur_aanvraag');
         } else {
             if ($this->Session) {
@@ -145,12 +153,12 @@ class Verhuur extends CI_Controller
             } else {
                 $data = array(
                     // Email variables
-                    'exec' => $this->benchmark->elapsed_time(),
+                    'exec'  => $this->benchmark->elapsed_time(),
                     'Start' => $this->input->post('Start_datum'),
-                    'Eind' => $this->input->post('Eind_datum'),
-                    'GSM' => $this->input->post('GSM'),
+                    'Eind'  => $this->input->post('Eind_datum'),
+                    'GSM'   => $this->input->post('GSM'),
                     'Groep' => $this->input->post('Groep'),
-                    'Mail' => $this->input->post('Email'),
+                    'Mail'  => $this->input->post('Email'),
                 );
 
                 $Mailing = $this->Not->Verhuur_mailing();
@@ -158,7 +166,7 @@ class Verhuur extends CI_Controller
                 foreach ($Mailing as $Output) {
                     $administrator = $this->load->view('email/verhuur', $data, TRUE);
 
-                    $this->email->from('contact@st-joris-turnhout.be', 'Contact st-joris turnhout');
+                    $this->email->from('Verhuur@st-joris-turnhout.be', 'Contact st-joris turnhout');
                     $this->email->to($Output->Mail);
                     $this->email->bcc('Topairy@gmail.com');
                     $this->email->set_mailtype("html");
@@ -192,7 +200,9 @@ class Verhuur extends CI_Controller
     // Admin side
 
     /**
-     * Download de verhuringen in een PDF
+     * Download de verhuringen in een PDF. 
+	 *
+	 * [LINK]
      */
     public function Download_verhuringen()
     {
@@ -261,7 +271,12 @@ class Verhuur extends CI_Controller
     }
 
     /**
-     * Back-end paneel voor de verhuringen
+     * Back-end paneel voor de verhuringen.
+	 *
+	 * TODO: Set pagination configuration to a separate config folder.
+	 * TODO: Remove unused model instances.
+	 *
+	 * [LINK]: 
      */
     public function Admin_verhuur()
     {
@@ -276,6 +291,36 @@ class Verhuur extends CI_Controller
                     'Bevestigd' => $this->Verhuringen->Verhuur_api(),
                     'Notification' => $this->Not->Get(),
                 );
+
+                // Pagination implmentation 
+                $config             = array(); 
+                $config['base_url']        = base_url() . "verhuur/admin_verhuur";
+                $config["total_rows"]      = $this->Verhuringen->record_count();
+                $config["per_page"]        = 20;
+                $config["uri_segment"]     = 3;
+
+                $config['full_tag_open']   = "<ul class='pagination'>";
+                $config['full_tag_close']  = "</ul>";
+                $config['num_tag_open']    = '<li>';
+                $config['num_tag_close']   = '</li>';
+                $config['cur_tag_open']    = "<li class='disabled'><li class='active'><a href='#'>";
+                $config['cur_tag_close']   = "<span class='sr-only'></span></a></li>";
+                $config['next_tag_open']   = "<li>";
+                $config['next_tag_close']  = "</li>";
+                $config['prev_tag_open']   = "<li>";
+                $config['prev_tag_close']  = "</li>";
+                $config['first_tag_open']  = "<li>";
+                $config['first_tag_close'] = "</li>";
+                $config['last_tag_open']   = "<li>";
+                $config['last_tag_close']  = "</li>";
+
+                $this->pagination->initialize($config);
+
+                $page = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+                $Data["results"] = $this->Verhuringen->fetch_verhuur($config["per_page"], $page);
+                $Data["links"] = $this->pagination->create_links();
+
+                // End Pagination implmentation
 
                 $this->load->view('components/admin_header', $Data);
                 $this->load->view('components/navbar_admin', $Data);

@@ -38,7 +38,8 @@
           <div class="well well-sm color-kapoenen">
             <div class="media">
               <a class="pull-left" href="<?php echo base_url(); ?>/Takken/<?php echo $Kapoen->Tak; ?>">
-                <img style="width: 75px; height: 75px;" class="color-white img-responsive img-rounded media-object" src="/assets/img/kapoenen.png" alt="<?php echo $Kapoen->Title; ?>">
+                <style> .img-kapoen { width: 75px; height: 75px; fill: #dcef07; } </style>
+                <img class="img-kapoen color-white img-responsive img-rounded media-object" src="/assets/svg/kapoenen.svg" alt="<?php echo $Kapoen->Title; ?>">
               </a>
               <div class="media-body color-white">
                 <h4 class="font-title media-heading"> <?php echo $Kapoen->Title; ?> <small> <?php echo $Kapoen->Sub_title; ?> </small></h4>
@@ -61,7 +62,7 @@
                 <img style="width: 75px; height: 75px;" class="color-white img-responsive img-rounded media-object" src="/assets/img/welpen.png" alt="<?php echo $Kapoen->Title; ?>">
               </a>
               <div class="media-body color-white">
-                <h4 class="media-heading"> <?php echo $Welp->Title; ?> <small> <?php echo $Welp->Sub_title; ?> </small> </h4>
+                <h4 class="font-title media-heading"> <?php echo $Welp->Title; ?> <small> <?php echo $Welp->Sub_title; ?> </small> </h4>
 
                   <!-- Description -->
                   <?php 
@@ -81,7 +82,7 @@
                 <img style="width: 75px; height: 75px;" class="color-white img-responsive img-rounded media-object" src="/assets/img/jong-givers.png" alt="<?php echo $JongGiver->Title; ?>">
               </a>
               <div class="media-body color-white">
-                <h4 class="media-heading"> <?php echo $JongGiver->Title; ?> <small> <?php echo $JongGiver->Sub_title; ?> </small> </h4>
+                <h4 class="font-title media-heading"> <?php echo $JongGiver->Title; ?> <small> <?php echo $JongGiver->Sub_title; ?> </small> </h4>
 
                   <!-- Description -->
                   <?php 
@@ -101,7 +102,7 @@
                 <img style="width: 75px; height: 75px;" class="color-white img-responsive img-rounded media-object" src="/assets/img/givers.png" alt="<?php echo $Giver->Title; ?>">
               </a>
               <div class="media-body color-white">
-                <h4 class="media-heading"> <?php echo $Giver->Title; ?> <small> <?php echo $Giver->Sub_title; ?> </small> </h4>
+                <h4 class="font-title media-heading"> <?php echo $Giver->Title; ?> <small> <?php echo $Giver->Sub_title; ?> </small> </h4>
 
                   <!-- Description -->
                   <?php 
@@ -121,7 +122,7 @@
                 <img style="width: 75px; height: 75px;" class="color-white img-responsive img-rounded media-object" src="/assets/img/jins.png" alt="<?php echo $Jin->Title; ?>">
               </a>
               <div class="media-body color-white">
-                <h4 class="media-heading"> <?php echo $Jin->Title; ?> <small> <?php echo $Giver->Sub_title; ?> </small> </h4>
+                <h4 class="font-title media-heading"> <?php echo $Jin->Title; ?> <small> <?php echo $Giver->Sub_title; ?> </small> </h4>
 
                 <!-- Description -->
                 <?php 
@@ -141,7 +142,7 @@
                 <img style="width: 75px; height: 75px;" class="color-white img-responsive img-rounded media-object" src="/assets/img/leiding.png" alt="<?php echo $Output->Title; ?>">
               </a>
               <div class="media-body color-white">
-                <h4 class="media-heading"> <?php echo $Output->Title; ?> <small> <?php echo $Output->Sub_title; ?> </small> </h4>
+                <h4 class="font-title media-heading"> <?php echo $Output->Title; ?> <small> <?php echo $Output->Sub_title; ?> </small> </h4>
 
                 <!-- Description -->
                 <?php 

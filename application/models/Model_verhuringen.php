@@ -57,6 +57,25 @@
 	}
 	// -------- //
 
+	// Pagination routes
+	public function record_count() {
+        return $this->db->count_all("Verhuur");
+    }
+
+    public function fetch_verhuur($limit, $start) {
+        $this->db->limit($limit, $start)->order_by("Start_datum", "asc");;
+        $query = $this->db->get("Verhuur");
+
+        if ($query->num_rows() > 0) {
+            foreach ($query->result() as $row) {
+                $data[] = $row;
+            }
+            return $data;
+        }
+        return false;
+   }
+	// END pagination routes
+
 	// Admin side 
 	public function Search()
 	{
@@ -141,6 +160,9 @@
 		return $Query->result();
 	}
 
+	/**
+	 * SELECT * FROM Verhuur WHERE ID = :segment
+	 */
 	public function verhuur_info()
 	{
 		$this->db->select() 

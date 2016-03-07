@@ -67,7 +67,7 @@
 								</tr>
 							</thead>
 							<tbody>
-								<?php foreach($Bevestigd as $Output): ?>
+								<?php foreach($results as $Output): ?>
 									<tr>
 										<td><code>#<?php echo $Output->ID; ?></code></td>
 										<td><?php echo date('d-m-Y', $Output->Start_datum); ?> / <?php echo date('d-m-Y', $Output->Eind_datum); ?></td>
@@ -144,6 +144,8 @@
 								<?php endforeach; ?>
 							</tbody>
 						</table>
+
+						<p><?php echo $links; ?></p>
 					</p>
 				</div>
 

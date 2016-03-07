@@ -17,7 +17,7 @@
 
 				<div class="list-group">
 					<a class="list-group-item" href="<?php echo base_url(); ?>verhuur"><span class="fa fa-info-circle"> Info</a>
-						          <a class="list-group-item" href="<?php echo base_url() . 'verhuur/bereikbaarheid'; ?>"><span class="fa fa-asterisk"></span> Bereikbaarheid</a>
+					<a class="list-group-item" href="<?php echo base_url() . 'verhuur/bereikbaarheid'; ?>"><span class="fa fa-asterisk"></span> Bereikbaarheid</a>
 					<a class="list-group-item" href="<?php echo base_url(); ?>verhuur/verhuur_kalender"><span class="fa fa-calendar"></span> Verhuur Kalender</a>
 					<a class="list-group-item" href="<?php echo base_url(); ?>verhuur/verhuur_aanvraag"><span class="fa fa-plus"></span> Verhuring aanvragen</a>
 					<a class="list-group-item" href="mailto:contact@st-joris-turnhout.be"><span class="fa fa-envelope"></span> Contact</a>
@@ -46,26 +46,31 @@
 
           			<p><span class="octicon octicon-info"></span> Het laatste weekend van een maand verhuren we niet.</p>
 
-          			<form method="POST" action="<?php echo base_url(); ?>/verhuur/toevoegen_verhuur">
-          				<label for="Start">Start datum:</label>
-          				<input style="width: 35%;" name="Start_datum" class="form-control" id="Start" placeholder="bv. 00/00/0000">
-          				<br>
+          			<?php echo form_open('verhuur/toevoegen_verhuur') ?>
+          				<div class="form-group">	
+          					<label for="Start">Start datum:</label>
+          					<input style="width: 35%;" name="Start_datum" class="form-control" id="Start" placeholder="bv. 00/00/0000">
+          				</div>
 
-          				<label for="Eind">Eind datum:</label>
-          				<input style="width: 35%;" name="Eind_datum" class="form-control" id="Eind" placeholder="bv. 00/00/0000">
-          				<br>
+          				<div class="form-group">
+          					<label for="Eind">Eind datum:</label>
+          					<input style="width: 35%;" name="Eind_datum" class="form-control" id="Eind" placeholder="bv. 00/00/0000">
+          				</div>
 
-          				<label for="Groep">Groep:</label>
-          				<input style="width: 35%;" name="Groep" class="form-control" id="Groep" placeholder="Groep">
-          				<br>
+          				<div class="form-group">
+          					<label for="Groep">Groep:</label>
+          					<input style="width: 35%;" name="Groep" class="form-control" id="Groep" placeholder="Groep">
+          				</div>
 
-          				<label for="GSM">GSM-nummer:</label>
-          				<input style="width: 35%;" name="GSM" class="form-control" id="GSM" placeholder="GSM nummer">
-          				<br>
+          				<div class="form-group">
+          					<label for="GSM">GSM-nummer:</label>
+          					<?php echo form_input(array('id' => 'GSM', 'name' => 'GSM', 'class' => 'form-control', 'style' => 'width: 35%;', 'placeholder' => 'GSM nummer')); ?>
+          				</div>
 
-          				<label for="Email"> E-mail </label>
-          				<input style="width: 35%;" class="form-control" name="Email" id="Email" placeholder="Voorbeeld@domein.be">
-          				<br>
+          				<div class="form-group">
+          					<label for="Email"> E-mail: </label>
+          					<input style="width: 35%;" class="form-control" name="Email" id="Email" placeholder="Voorbeeld@domein.be">
+          				</div>
 
           				<button class="btn btn-success" type="submit"> Aanvragen </button>
           				<button class="btn btn-danger" type="reset"> Reset </button>

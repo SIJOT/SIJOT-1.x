@@ -7,9 +7,6 @@ class backend extends CI_Controller
     public $Session     = array();
     public $Permissions = array();
 
-    /**
-     * backend constructor.
-     */
     public function __construct()
     {
         parent::__construct();
@@ -24,11 +21,8 @@ class backend extends CI_Controller
         $this->Permissions = $this->session->userdata('Permissions');
     }
 
-    /**
-     * Show the login page.
-     *
-     * Url: {domain}/backend
-     */
+    // END Constructor
+
     public function index()
     {
         if ($this->Session) {
