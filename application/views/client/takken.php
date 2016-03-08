@@ -16,12 +16,12 @@
       		Takken:
       	</div>
       	<div class="list-group">
-      		<a class="list-group-item" href="<?php echo base_url(); ?>takken/Kapoenen/">De Kapoenen</a>
-      		<a class="list-group-item" href="<?php echo base_url(); ?>takken/Welpen">De Welpen</a>
-      		<a class="list-group-item" href="<?php echo base_url(); ?>takken/JongGivers/">De Jong-givers</a>
-      		<a class="list-group-item" href="<?php echo base_url(); ?>takken/Givers/">De Givers</a>
-      		<a class="list-group-item" href="<?php echo base_url(); ?>takken/Jins/">De Jins</a>
-      		<a class="list-group-item" href="<?php echo base_url(); ?>takken/Leiding/">De Leiding</a>
+      		<a class="list-group-item" href="<?php echo base_url('takken/Kapoenen'); ?>">De Kapoenen</a>
+      		<a class="list-group-item" href="<?php echo base_url('takken/Welpen'); ?>">De Welpen</a>
+      		<a class="list-group-item" href="<?php echo base_url('takken/JongGivers'); ?>">De Jong-givers</a>
+      		<a class="list-group-item" href="<?php echo base_url('takken/Givers'); ?>">De Givers</a>
+      		<a class="list-group-item" href="<?php echo base_url('takken/Jins'); ?>">De Jins</a>
+      		<a class="list-group-item" href="<?php echo base_url('takken/Leiding'); ?>">De Leiding</a>
       	</div>
       </div>
     </div>	
