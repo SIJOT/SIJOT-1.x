@@ -1,6 +1,6 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 session_start(); //we need to call PHP's session object to access it through CI
-class backend extends CI_Controller
+class backend extends MY_Controller
 {
 
     // Constructor
@@ -22,6 +22,24 @@ class backend extends CI_Controller
     }
 
     // END Constructor
+    protected function middleware()
+    {
+        /**
+         * Return the list of middlewares you want to be applied,
+         * Here is list of some valid options
+         *
+         * admin_auth                    // As used below, simplest, will be applied to all
+         * someother|except:index,list   // This will be only applied to posts()
+         * yet_another_one|only:index    // This will be only applied to index()
+         **/
+        return array('LoggedIn|only:test');
+    }
+    
+    public function test()
+    {
+        return 'it works!';
+    }
+
 
     public function index()
     {
