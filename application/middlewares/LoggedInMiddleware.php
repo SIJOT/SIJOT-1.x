@@ -10,15 +10,20 @@ class LoggedInMiddleware {
 
     protected $controller;
     protected $ci;
+    protected $session;
     
     public function __construct($controller, $ci)
     {
         $this->controller = $controller;
         $this->ci = $ci;
+        
+        $this->session     = $this->ci->session->userdata('logged_in');
     }
 
     public function run() 
     {
-        // Magic here
+        if (! $this->session) {
+            redirect('/');
+        }
     }
 }
