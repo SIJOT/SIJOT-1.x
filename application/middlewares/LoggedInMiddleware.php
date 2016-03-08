@@ -23,7 +23,7 @@ class LoggedInMiddleware {
     public function run() 
     {
         if (! $this->session) {
-            redirect('/');
+            show_error('You are not allowed to perform this operation');
         }
     }
 }
