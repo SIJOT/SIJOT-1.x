@@ -83,7 +83,7 @@ class Inschrijvingen extends CI_Controller
 
                 $this->load->view('components/admin_header', $Data);
                 $this->load->view('components/navbar_admin', $Data);
-                $this->load->view('admin/inschrijvingen_ontbijt', $DB);
+                $this->load->view('admin/inschrijvingen_ontbijt', $Data);
                 $this->load->view('components/footer');
             } else {
 
