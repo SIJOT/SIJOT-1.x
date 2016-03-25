@@ -21,7 +21,7 @@ class VerifyLogin extends CI_Controller
         $this->load->library(array('email', 'form_validation'));
     }
 
-    function index()
+    public function index()
     {
         $this->form_validation->set_rules('username', 'Username', 'trim|required|xss_clean');
         $this->form_validation->set_rules('password', 'Password', 'trim|required|xss_clean|callback_check_database');
@@ -44,7 +44,7 @@ class VerifyLogin extends CI_Controller
      * @param $password
      * @return bool
      */
-    function check_database($password)
+    public function check_database($password)
     {
         // Field validation succeeded.  Validate against database
         $username = $this->input->post('username');
@@ -53,18 +53,17 @@ class VerifyLogin extends CI_Controller
         $result = $this->user->login($username, $password);
 
         if ($result) {
-            $auth_array       = array();
+            $auth       = array();
             $permission_array = array();
 
             foreach ($result as $row) {
-                $auth_array = array(
-                    'id'       => $row->id,
-                    'username' => $row->username,
-                    'Admin'    => $row->Admin_role,
-                    'Tak'      => $row->Tak,
-                    'Theme'    => $row->Theme,
-                    'Email'    => $row->Mail,
-                );
+
+                $auth['id']       = $row->id;
+                $auth['username'] = $row->username;
+                $auth['Admin']    = $row->Admin_role;
+                $auth['Tak']      = $row->Tak;
+                $auth['Theme']    = $row->Theme;
+                $auth['Email']    = $row->Mail;
 
                 $this->session->set_userdata('logged_in', $auth_array);
                 $permissions = $this->user->permissions($auth_array['id']);

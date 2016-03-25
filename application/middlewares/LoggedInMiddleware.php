@@ -8,10 +8,26 @@
 
 class LoggedInMiddleware {
 
+    /**
+     * @var $controller
+     */
     protected $controller;
+
+    /**
+     * @var $ci
+     */
     protected $ci;
+
+    /**
+     * @var $session
+     */
     protected $session;
-    
+
+    /**
+     * LoggedInMiddleware constructor.
+     * @param $controller
+     * @param $ci
+     */
     public function __construct($controller, $ci)
     {
         $this->controller = $controller;
@@ -20,6 +36,9 @@ class LoggedInMiddleware {
         $this->session     = $this->ci->session->userdata('logged_in');
     }
 
+    /**
+     *
+     */
     public function run() 
     {
         if (! $this->session) {

@@ -89,6 +89,9 @@
                       Lid worden
                     </a>
                   </li>
+                  <li>
+                    <a href=/assets/files/kamp.docx"">Kamp 2016</a>
+                  </li>
                 </ul>
               </li>
 
