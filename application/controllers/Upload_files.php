@@ -7,7 +7,7 @@
 
 		function __construct() {
 			parent::__construct();
-			$this->load->helper(array('form', 'url', 'logger'));
+			$this->load->helper(array('form', 'url'));
 
 			$this->Session     = $this->session->userdata('logged_in');
             $this->Permissions = $this->session->userdata('Permissions');
@@ -42,8 +42,6 @@
 		 */
 		public function do_upload() {
 			if($this->Session) {
-				// Logging
-				user_log('Server','Probeerd een nieuw groentje te uploaden.');
 
 				$config = array(
 					'upload_path'   => './assets/files/',
@@ -58,9 +56,6 @@
 
 				if (! $this->upload->do_upload()) {
 					$Session = $this->session->userdata('logged_in');
-
-					// Logging
-					user_log('Server', 'Beep Beep! Ik kon het groentje niet uploaden.');
 
 					// Global Variables
 					$data = array(
@@ -78,7 +73,6 @@
 					$data['Theme'] = $Session['Theme'];
 
 					// Error variable
-					user_log('Server', 'Beep Beep! Ik kon het groentje uploaden.');
 					$error = array('error' => $this->upload->display_errors());
 
 					$this->load->view('components/admin_header', $data);
